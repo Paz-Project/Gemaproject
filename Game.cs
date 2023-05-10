@@ -20,10 +20,13 @@ namespace Gameproject
             var dino = new Dino();
             allObjs.Add(dino);
 
-            var obj = new Obstruction(allObjs);
-            allObjs.Add(obj);
+            var obj1 = new Obstruction(allObjs, true, false);
+            allObjs.Add(obj1);
 
-            
+            var obj2 = new Obstruction(allObjs, false, true);
+            allObjs.Add(obj2);
+
+
             window.RunGameLoop(allObjs);
             
         }

@@ -23,23 +23,20 @@ namespace Gameproject
         bool onFloor;
         bool isFly = false;
         bool isWalk = false;
-        public Obstruction(Group allObjs)
+        public Obstruction(Group allObjs, bool isFly, bool isWalk)
         {
-            Random rand = new Random();
-            var number = rand.Next(0,2);
-            if (number == 0)
-            {
-                isWalk = true;
-                isFly = false;
-            }
-            else
-            {
-                isWalk = false;
-                isFly = true;
-            }
             this.obj = allObjs;
-            //anothermonster();
-            monster();
+            this.isFly = isFly;
+            this.isWalk = isWalk;
+            if (isFly)
+            {
+                monster();
+            }
+            else if (isWalk)
+            {
+                anothermonster();
+            }
+
         }
         private void monster()
         {
@@ -62,9 +59,9 @@ namespace Gameproject
         }
         private void anothermonster()
         {
-            //Origin = new Vector2f(-1290, -300);
+            Origin = new Vector2f(-1500, -300);
             var sprite = new SpriteEntity();
-            sprite.Position = new Vector2f(1200, 300);
+            //sprite.Position = new Vector2f(1200, 300);
             sprite.Scale = new Vector2f(5, 5);
             Add(sprite);
 
@@ -112,7 +109,7 @@ namespace Gameproject
             {
                 Debug.WriteLine("die");
                 this.Detach();
-                this.obj.Add(new Obstruction(this.obj));
+                this.obj.Add(new Obstruction(this.obj, this.isFly, this.isWalk));
             }
         }
         public override void PhysicsUpdate(float fixTime)
